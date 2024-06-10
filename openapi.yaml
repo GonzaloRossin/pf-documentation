@@ -1,0 +1,1288 @@
+openapi: 3.0.3
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  description: |-
+    This is a description for AN EVENT APP named ...
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+servers:
+  - url: https://event-app.swagger.io/api/v3
+tags:
+  - name: events
+    description: Crud operations on events
+  - name: users
+    description: Operations about user
+  - name: documents
+    description: Operations about documents
+  - name: TicketSales
+    description: Operations about ticket sales
+  - name: TicketType
+    description: Operations about ticket types
+  - name: Discounts
+    description: Operations about discounts
+  - name: Feedbacks
+    description: Operations about feedbacks
+  - name: TicketSalesDetails
+    description: Operations about ticket sales details
+  - name: TicketConsumptions
+    description: Operations about ticket consumptions
+  - name: Consumptions
+    description: Operations about consumptions
+
+paths:
+  /users:
+    get:
+      tags:
+        - users
+      summary: Get a list of users
+      operationId: listUsers
+      responses:
+        '200':
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      tags:
+        - users
+      summary: Create a new user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User created
+  /users/{userId}:
+    get:
+      tags:
+        - users
+      summary: Get a user by ID
+      operationId: getUserById
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+    patch:
+      tags:
+        - users
+      summary: Partially update a user
+      operationId: updateUserPartial
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User updated
+        '404':
+          description: User not found
+    delete:
+      tags:
+        - users
+      summary: Delete a user
+      operationId: deleteUser
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User deleted
+        '400':
+          description: Invalid username supplied
+        '404':
+          description: User not found
+  /events:
+    get:
+      tags:
+        - events
+      summary: Get a list of events
+      operationId: listEvents
+      responses:
+        '200':
+          description: A list of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+    post:
+      tags:
+        - events
+      summary: Create a new event
+      operationId: createEvent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '201':
+          description: Event created
+  /events/{eventId}:
+    get:
+      tags:
+        - events
+      summary: Get an event by ID
+      operationId: getEventById
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Event found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '404':
+          description: Event not found
+    put:
+      tags:
+        - events
+      summary: Update an event
+      operationId: updateEvent
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '200':
+          description: Event updated
+        '404':
+          description: Event not found
+    patch:
+      tags:
+        - events
+      summary: Partially update an event
+      operationId: updateEventPartial
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '200':
+          description: Event updated
+        '404':
+          description: Event not found
+    delete:
+      tags:
+        - events
+      summary: Delete an event
+      operationId: deleteEvent
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Event deleted
+        '404':
+          description: Event not found
+  /feedbacks:
+    post:
+      tags:
+        - Feedbacks
+      summary: Create new feedback
+      operationId: createFeedback
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Feedback'
+      responses:
+        '201':
+          description: Feedback created
+  /feedbacks/{feedbackId}:
+    get:
+      tags:
+        - Feedbacks
+      summary: Get feedback by ID
+      operationId: getFeedbackById
+      parameters:
+        - name: feedbackId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Feedback found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feedback'
+        '404':
+          description: Feedback not found
+  /documents:
+    get:
+      tags:
+        - documents
+      summary: Get a list of documents
+      operationId: listDocuments
+      responses:
+        '200':
+          description: A list of documents
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Document'
+    post:
+      tags:
+        - documents
+      summary: Create a new document
+      operationId: createDocument
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Document'
+      responses:
+        '201':
+          description: Document created
+  /documents/{event_id}:
+    get:
+      tags:
+        - documents
+      summary: Get a list of documents by event ID
+      operationId: listDocumentsByEventId
+      parameters:
+        - name: event_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: A list of documents
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Document'
+  /documents/{documentId}:
+    get:
+      tags:
+        - documents
+      summary: Get a document by ID
+      operationId: getDocumentById
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Document found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document'
+        '404':
+          description: Document not found
+    put:
+      tags:
+        - documents
+      summary: Update a document
+      operationId: updateDocument
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Document'
+      responses:
+        '200':
+          description: Document updated
+        '404':
+          description: Document not found
+    delete:
+      tags:
+        - documents
+      summary: Delete a document
+      operationId: deleteDocument
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Document deleted
+        '404':
+          description: Document not found
+  /ticketSales:
+    post:
+      tags:
+        - TicketSales
+      summary: Create a new ticket sale
+      operationId: createTicketSale
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketSale'
+      responses:
+        '201':
+          description: Ticket sale created
+  /ticketSales/{ticketSaleId}:
+    get:
+      tags:
+        - TicketSales
+      summary: Get a ticket sale by ID
+      operationId: getTicketSaleById
+      parameters:
+        - name: ticketSaleId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Ticket sale found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketSale'
+        '404':
+          description: Ticket sale not found
+    put:
+      tags:
+        - TicketSales
+      summary: Update a ticket sale
+      operationId: updateTicketSale
+      parameters:
+        - name: ticketSaleId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketSale'
+      responses:
+        '200':
+          description: Ticket sale updated
+        '404':
+          description: Ticket sale not found
+    delete:
+      tags:
+        - TicketSales
+      summary: Delete a ticket sale
+      operationId: deleteTicketSale
+      parameters:
+        - name: ticketSaleId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Ticket sale deleted
+        '404':
+          description: Ticket sale not found
+  /ticketSaleDetails:
+    post:
+      tags:
+        - TicketSalesDetails
+      summary: Create a new ticket sale detail
+      operationId: createTicketSaleDetail
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketSaleDetail'
+      responses:
+        '201':
+          description: Ticket sale detail created
+  /ticketSaleDetails/{ticketSaleDetailId}:
+    get:
+      tags:
+        - TicketSalesDetails
+      summary: Get a ticket sale detail by ID
+      operationId: getTicketSaleDetailById
+      parameters:
+        - name: ticketSaleDetailId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Ticket sale detail found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketSaleDetail'
+        '404':
+          description: Ticket sale detail not found
+  /consumption:
+    post:
+      tags:
+        - Consumptions
+      summary: Create a new consumption
+      operationId: createConsumption
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Consumption'
+      responses:
+        '201':
+          description: Consumption created
+  /consumption/{consumptionId}:
+    get:
+      tags:
+        - Consumptions
+      summary: Get a consumption by ID
+      operationId: getConsumptionById
+      parameters:
+        - name: consumptionId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Consumption found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumption'
+        '404':
+          description: Consumption not found
+    put:
+      tags:
+        - Consumptions
+      summary: Update a consumption
+      operationId: updateConsumption
+      parameters:
+        - name: consumptionId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Consumption'
+      responses:
+        '200':
+          description: Consumption updated
+        '404':
+          description: Consumption not found
+    delete:
+      tags:
+        - Consumptions
+      summary: Delete a consumption
+      operationId: deleteConsumption
+      parameters:
+        - name: consumptionId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Consumption deleted
+        '404':
+          description: Consumption not found
+  /ticketConsumptions:
+    post:
+      tags:
+        - TicketConsumptions
+      summary: Create a new ticket consumption
+      operationId: createTicketConsumption
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketConsumption'
+      responses:
+        '201':
+          description: Ticket consumption created
+  /ticketConsumptions/{ticketConsumptionId}:
+    get:
+      tags:
+        - TicketConsumptions
+      summary: Get a ticket consumption by ID
+      operationId: getTicketConsumptionById
+      parameters:
+        - name: ticketConsumptionId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Ticket consumption found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketConsumption'
+        '404':
+          description: Ticket consumption not found
+
+  /ticketTypes:
+    post:
+      tags:
+        - TicketType
+      summary: Create a new ticket type
+      operationId: createTicketType
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketType'
+      responses:
+        '201':
+          description: Ticket type created
+  /ticketTypes/{ticketTypeId}:
+    get:
+      tags:
+        - TicketType
+      summary: Get a ticket type by ID
+      operationId: getTicketTypeById
+      parameters:
+        - name: ticketTypeId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Ticket type found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketType'
+        '404':
+          description: Ticket type not found
+    put:
+      tags:
+        - TicketType
+      summary: Update a ticket type
+      operationId: updateTicketType
+      parameters:
+        - name: ticketTypeId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketType'
+      responses:
+        '200':
+          description: Ticket type updated
+        '404':
+          description: Ticket type not found
+    delete:
+      tags:
+        - TicketType
+      summary: Delete a ticket type
+      operationId: deleteTicketType
+      parameters:
+        - name: ticketTypeId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Ticket type deleted
+        '404':
+          description: Ticket type not found
+  /discounts:
+    post:
+      tags:
+        - Discounts
+      summary: Create a new discount
+      operationId: createDiscount
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Discount'
+      responses:
+        '201':
+          description: Discount created
+  /discounts/{discountId}:
+    get:
+      tags:
+        - Discounts
+      summary: Get a discount by ID
+      operationId: getDiscountById
+      parameters:
+        - name: discountId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Discount found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Discount'
+        '404':
+          description: Discount not found
+    put:
+      tags:
+        - Discounts
+      summary: Update a discount
+      operationId: updateDiscount
+      parameters:
+        - name: discountId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Discount'
+      responses:
+        '200':
+          description: Discount updated
+        '404':
+          description: Discount not found
+    delete:
+      tags:
+        - Discounts
+      summary: Delete a discount
+      operationId: deleteDiscount
+      parameters:
+        - name: discountId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Discount deleted
+        '404':
+          description: Discount not found
+  /chat/start:
+    post:
+      summary: Start a chat session
+      operationId: startChat
+      tags:
+        - Chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                  format: int64
+                  description: Unique identifier for the user starting the chat session.
+      responses:
+        '200':
+          description: Chat session started successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionId:
+                    type: string
+                    description: Unique identifier for the chat session.
+  /chat/message:
+    post:
+      summary: Send a message to the chatbot
+      operationId: sendMessage
+      tags:
+        - Chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sessionId:
+                  type: string
+                  description: Unique identifier for the chat session.
+                message:
+                  type: string
+                  description: Message text to send to the chatbot.
+      responses:
+        '200':
+          description: Message sent successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    description: Chatbot's response to the message.
+  /chat/response:
+    get:
+      summary: Get chatbot's response
+      operationId: getResponse
+      tags:
+        - Chat
+      parameters:
+        - in: query
+          name: sessionId
+          required: true
+          schema:
+            type: string
+          description: Unique identifier for the chat session.
+      responses:
+        '200':
+          description: Successfully retrieved chatbot's response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    description: Chatbot's response.
+  /chat/end:
+    post:
+      summary: End the chat session
+      operationId: endChat
+      tags:
+        - Chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sessionId:
+                  type: string
+                  description: Unique identifier for the chat session.
+      responses:
+        '200':
+          description: Chat session ended successfully.
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        username:
+          type: string
+          example: theUser
+        email:
+          type: string
+          example: john@email.com
+        password:
+          type: string
+          example: '12345'
+          format: password
+        role:
+          type: string
+          example: organizer
+          enum:
+            - organizer
+            - staff
+        createdAt:
+          type: string
+          example: '2/5/2024'
+          format: date-time
+      required:
+        - username
+        - email
+        - password
+        - role
+      xml:
+        name: user
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 5
+        user_id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: "ITBA future day"
+        description:
+          type: string
+          example: "this a mock ITBA Future Day description"
+        start_datetime:
+          type: string
+          example: "16:00 - 19/06/2024"
+          format: date-time
+        end_datetime:
+          type: string
+          example: "18:00 - 19/06/2024"
+          format: date-time
+        location:
+          type: string
+          example: "ITBA Sede Distrito Tecnologico"
+        has_consumptions:
+          type: boolean
+          example: false
+        createdAt:
+          type: string
+          example: "5/06/2024"
+          format: date-time
+        updatedAt:
+          type: string
+          example: "10/06/2024"
+          format: date-time
+      required:
+        - user_id
+        - name
+        - start_datetime
+        - end_datetime
+        - location
+    Document:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 6647
+        event_id:
+          type: integer
+          format: int64
+          example: 4444
+        content:
+          type: object
+        content_type:
+          type: string
+          example: "pdf"
+        createdAt:
+          type: string
+          example: "2024-06-19T21:33:00Z"
+      required:
+        - event_id
+        - content
+        - content_type
+    TicketSale:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 5602
+        event_id:
+          type: integer
+          format: int64
+          example: 754215
+        buyer_email:
+          type: string
+          format: email
+          example: "kog@example.com"
+        total_price:
+          type: number
+          format: double
+          example: 1000
+        payment_status:
+          type: string
+          enum:
+            - pending
+            - completed
+            - failed
+          example: "completed"
+        qr_code:
+          type: string
+        has_consumption:
+          type: boolean
+          example: false
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-06-19T9:00:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2024-06-19T19:00:00Z"
+      required:
+        - event_id
+        - buyer_email
+        - total_price
+        - payment_status
+    TicketSaleDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 53468
+        sale_id:
+          type: integer
+          format: int64
+          example: 5602
+        ticket_type_id:
+          type: integer
+          format: int64
+          example: 123111
+        quantity:
+          type: integer
+          format: int32
+          example: 6
+        remaining_quantity:
+          type: integer
+          format: int32
+          example: 5
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-06-19T9:00:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2024-06-19T16:00:00Z"
+      required:
+        - sale_id
+        - ticket_type_id
+        - quantity
+        - remaining_quantity
+    TicketType:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 123111
+        event_id:
+          type: integer
+          format: int64
+          example: 123000
+        type_name:
+          type: string
+          example: "VIP"
+        price:
+          type: number
+          format: double
+          example: 1000
+        quantity:
+          type: integer
+          format: int32
+          example: 100
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-06-19T13:00:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2024-06-19T18:00:00Z"
+      required:
+        - event_id
+        - type_name
+        - price
+        - quantity
+    TicketConsumption:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 123453
+        sale_id:
+          type: integer
+          format: int64
+          example: 5602
+        consumption_id:
+          type: integer
+          format: int64
+          example: 654321
+        quantity:
+          type: integer
+          format: int32
+          example: 6
+        remaining_quantity:
+          type: integer
+          format: int32
+          example: 5
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-06-19T16:00:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2024-06-19T20:00:00Z"
+      required:
+        - sale_id
+        - consumption_id
+        - quantity
+        - remaining_quantity
+    Consumption:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 654321
+        event_id:
+          type: integer
+          format: int64
+          example: 123456
+        item:
+          type: string
+          example: "Cerveza"
+        price:
+          type: number
+          format: double
+          example: 100
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-06-19T16:00:00Z"
+      required:
+        - event_id
+        - item
+        - price
+    Discount:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1234
+        event_id:
+          type: integer
+          format: int64
+          example: 5678
+        code:
+          type: string
+          example: "DISCOUNT10"
+        discount_percentage:
+          type: integer
+          format: int32
+          example: 10
+        expiry_date:
+          type: string
+          format: date-time
+          example: "2024-06-19T16:00:00Z"
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-06-19T16:00:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2024-06-19T16:00:00Z"
+      required:
+        - event_id
+        - code
+        - discount_percentage
+    Feedback:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1234
+        event_id:
+          type: integer
+          format: int64
+          example: 5678
+        buyer_email:
+          type: string
+          format: email
+          example: "john_doe@gmail.com"
+        rating:
+          type: integer
+          minimum: 0
+          maximum: 10
+          example: 8
+        comment:
+          type: string
+          example: "Great event!"
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-06-19T16:00:00Z"
+      required:
+        - event_id
+        - buyer_email
+        - rating
+    ChatSessionStartRequest:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+          description: Unique identifier for the user starting the chat session.
+          example: 42
+      required:
+        - userId
+    ChatSessionStartResponse:
+      type: object
+      properties:
+        sessionId:
+          type: string
+          description: Unique identifier for the chat session.
+          example: "abc123xyz"
+    SendMessageRequest:
+      type: object
+      properties:
+        sessionId:
+          type: string
+          description: Unique identifier for the chat session.
+          example: "abc123xyz"
+        message:
+          type: string
+          description: Message text to send to the chatbot.
+          example: "Hello, how can I help you today?"
+      required:
+        - sessionId
+        - message
+    SendMessageResponse:
+      type: object
+      properties:
+        response:
+          type: string
+          description: Immediate acknowledgment or response from the chatbot.
+          example: "I'm here to help. Can you provide more details?"
+    GetResponseResponse:
+      type: object
+      properties:
+        response:
+          type: string
+          description: Chatbot's response to the user's message.
+          example: "Based on your question, here is the information you requested..."
+    EndChatSessionRequest:
+      type: object
+      properties:
+        sessionId:
+          type: string
+          description: Unique identifier for the chat session.
+          example: "abc123xyz"
+      required:
+        - sessionId
+    EndChatSessionResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Confirmation message that the chat session has ended.
+          example: "Your chat session has been successfully ended. Thank you for chatting with us."
+      
+      
+        
+        
